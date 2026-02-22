@@ -1,5 +1,7 @@
 package gg.wrldmap.covetGUIUtils.gui;
 
+import dev.lone.itemsadder.api.FontImages.FontImageWrapper;
+import dev.lone.itemsadder.api.FontImages.TexturedInventoryWrapper;
 import gg.wrldmap.covetGUIUtils.CovetGUIUtils;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.kyori.adventure.text.Component;
@@ -13,6 +15,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class DynamicGUIHelper implements InventoryHolder {
     private static DynamicGUIHelper instance;
+    public Inventory gui;
+    public static TexturedInventoryWrapper iawrapper;
 
     public DynamicGUIHelper() {
         instance = this;
@@ -26,7 +30,16 @@ public class DynamicGUIHelper implements InventoryHolder {
         int slots = data.rows * 9;
 
         Component title = parseText(player, data.title);
-        Inventory gui = Bukkit.createInventory(this, slots, title);
+        String legacyTitle = net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer.legacySection()
+                .serialize(title);
+        if (CovetGUIUtils.isItemsAdderPresent && data.background != null) {
+            FontImageWrapper IAbg = new FontImageWrapper(data.background);
+            this.iawrapper = new TexturedInventoryWrapper(this, slots, legacyTitle, IAbg);
+            this.gui = iawrapper.getInternal();
+        } else {
+            this.iawrapper = null;
+            this.gui = Bukkit.createInventory(this, slots, title);
+        }
 
         data.items.forEach((slot, itemData) -> {
             if (slot >= 0 && slot < slots) {

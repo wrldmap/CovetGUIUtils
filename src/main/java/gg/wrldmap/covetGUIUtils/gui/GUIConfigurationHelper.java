@@ -1,5 +1,6 @@
 package gg.wrldmap.covetGUIUtils.gui;
 
+import dev.lone.itemsadder.api.FontImages.FontImageWrapper;
 import gg.wrldmap.covetGUIUtils.CovetGUIUtils;
 import io.th0rgal.oraxen.api.OraxenItems;
 import io.th0rgal.oraxen.items.ItemBuilder;
@@ -95,6 +96,7 @@ public class GUIConfigurationHelper {
         public String type = "chest";
         public String title = "Menu";
         public int rows = 3;
+        public String background;
         public Map<Integer, GuiItem> items = new HashMap<>();
     }
 

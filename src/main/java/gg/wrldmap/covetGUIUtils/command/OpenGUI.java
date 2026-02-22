@@ -3,6 +3,7 @@ package gg.wrldmap.covetGUIUtils.command;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.tree.LiteralCommandNode;
+import dev.lone.itemsadder.api.FontImages.TexturedInventoryWrapper;
 import gg.wrldmap.covetGUIUtils.gui.DynamicGUIHelper;
 import gg.wrldmap.covetGUIUtils.gui.GUIConfigurationHelper;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
@@ -48,8 +49,12 @@ public class OpenGUI {
     private int openSpecificGUI(CommandContext<CommandSourceStack> context, String name) {
         if (context.getSource().getSender() instanceof Player player) {
             Inventory inv = DynamicGUIHelper.getInstance().createGuiForPlayer(player, name);
+            TexturedInventoryWrapper invwrap = DynamicGUIHelper.iawrapper;
 
-            if (inv != null) {
+            if (inv != null && invwrap != null) {
+                invwrap.showInventory(player);
+                player.sendRichMessage("<gold>Opening GUI: <white>'" + name + "'");
+            } else if (inv != null) {
                 player.openInventory(inv);
                 player.sendRichMessage("<gold>Opening GUI: <white>'" + name + "'");
             } else {

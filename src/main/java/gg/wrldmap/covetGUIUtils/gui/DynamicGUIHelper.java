@@ -22,7 +22,7 @@ public class DynamicGUIHelper implements InventoryHolder {
         instance = this;
     }
 
-    public Inventory createGuiForPlayer(Player player, String guiName) {
+    public Inventory createConfigBasedGUI(Player player, String guiName) {
         GUIConfigurationHelper.GuiConfig data = GUIConfigurationHelper.getGuiMap().get(guiName);
 
         if (data == null) return null;
@@ -46,6 +46,12 @@ public class DynamicGUIHelper implements InventoryHolder {
                 gui.setItem(slot, itemData.createItemStack(player));
             }
         });
+
+        return gui;
+    }
+
+    public Inventory createAPIBasedGUI(Player player, String guiName) {
+        // TODO: Make this.
 
         return gui;
     }

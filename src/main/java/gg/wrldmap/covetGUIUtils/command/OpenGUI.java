@@ -48,7 +48,7 @@ public class OpenGUI {
 
     private int openSpecificGUI(CommandContext<CommandSourceStack> context, String name) {
         if (context.getSource().getSender() instanceof Player player) {
-            Inventory inv = DynamicGUIHelper.getInstance().createGuiForPlayer(player, name);
+            Inventory inv = DynamicGUIHelper.getInstance().createConfigBasedGUI(player, name);
             TexturedInventoryWrapper invwrap = DynamicGUIHelper.iawrapper;
 
             if (inv != null && invwrap != null) {

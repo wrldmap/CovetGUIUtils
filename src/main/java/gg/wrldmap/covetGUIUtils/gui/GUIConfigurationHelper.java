@@ -1,9 +1,8 @@
 package gg.wrldmap.covetGUIUtils.gui;
 
-import dev.lone.itemsadder.api.FontImages.FontImageWrapper;
+import com.nexomc.nexo.api.NexoItems;
 import gg.wrldmap.covetGUIUtils.CovetGUIUtils;
 import io.th0rgal.oraxen.api.OraxenItems;
-import io.th0rgal.oraxen.items.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.spongepowered.configurate.CommentedConfigurationNode;
@@ -128,9 +127,16 @@ public class GUIConfigurationHelper {
             }
 
             if (item == null && CovetGUIUtils.isOraxenPresent) {
-                ItemBuilder oraxenItem = OraxenItems.getItemById(material);
+                io.th0rgal.oraxen.items.ItemBuilder oraxenItem = OraxenItems.getItemById(material);
                 if (oraxenItem != null) {
                     item = oraxenItem.build();
+                }
+            }
+
+            if (item == null && CovetGUIUtils.isNexoPresent) {
+                com.nexomc.nexo.items.ItemBuilder nexoItem = NexoItems.itemFromId(material);
+                if (nexoItem != null) {
+                    item = nexoItem.build();
                 }
             }
 

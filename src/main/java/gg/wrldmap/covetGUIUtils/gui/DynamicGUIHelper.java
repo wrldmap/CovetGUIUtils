@@ -11,8 +11,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.jetbrains.annotations.NotNull;
 
-
-
 public class DynamicGUIHelper implements InventoryHolder {
     private static DynamicGUIHelper instance;
     public Inventory gui;

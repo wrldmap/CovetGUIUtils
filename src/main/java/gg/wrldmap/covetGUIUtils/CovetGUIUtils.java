@@ -11,6 +11,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class CovetGUIUtils extends JavaPlugin {
     public static boolean isItemsAdderPresent;
     public static boolean isOraxenPresent;
+    public static boolean isNexoPresent;
     public static boolean isPapiPresent;
     public static boolean doesPluginFolderExist;
     public static final MiniMessage miniMessage = MiniMessage.miniMessage();
@@ -22,6 +23,9 @@ public final class CovetGUIUtils extends JavaPlugin {
         }
         if (getServer().getPluginManager().getPlugin("oraxen") != null) {
             isOraxenPresent = true;
+        }
+        if (getServer().getPluginManager().getPlugin("nexo") != null) {
+            isNexoPresent = true;
         }
         if (getServer().getPluginManager().getPlugin("placeholderapi") != null) {
             isPapiPresent = true;

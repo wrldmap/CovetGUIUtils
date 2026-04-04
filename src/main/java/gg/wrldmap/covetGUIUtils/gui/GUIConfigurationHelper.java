@@ -96,6 +96,7 @@ public class GUIConfigurationHelper {
         public String title = "Menu";
         public int rows = 3;
         public String background;
+        public int shift = 0;
         public Map<Integer, GuiItem> items = new HashMap<>();
     }
 

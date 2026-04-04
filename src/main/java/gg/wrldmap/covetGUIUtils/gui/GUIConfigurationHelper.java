@@ -3,6 +3,7 @@ package gg.wrldmap.covetGUIUtils.gui;
 import com.nexomc.nexo.api.NexoItems;
 import gg.wrldmap.covetGUIUtils.CovetGUIUtils;
 import io.th0rgal.oraxen.api.OraxenItems;
+import net.kyori.adventure.text.logger.slf4j.ComponentLogger;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.spongepowered.configurate.CommentedConfigurationNode;
@@ -17,12 +18,11 @@ import java.util.*;
 import java.util.stream.Stream;
 
 public class GUIConfigurationHelper {
-
     private static Map<String, GuiConfig> guiMap = new HashMap<>();
-
     public static Map<String, GuiConfig> getGuiMap() {
         return Collections.unmodifiableMap(guiMap);
     }
+    public final ComponentLogger logger = CovetGUIUtils.getPlugin(CovetGUIUtils.class).getComponentLogger();
 
     public void loadGuis() {
         Path guiFolder = CovetGUIUtils.getPlugin(CovetGUIUtils.class).getDataFolder().toPath().resolve("gui");
@@ -31,10 +31,10 @@ public class GUIConfigurationHelper {
         if (!Files.exists(guiFolder)) {
             try {
                 Files.createDirectories(guiFolder);
-                CovetGUIUtils.getPlugin(CovetGUIUtils.class).getLogger().info("Created /gui/ folder successfully!");
+                logger.info("Created /gui/ folder successfully!");
                 createExampleFile(guiFolder.resolve("example.conf"));
             } catch (IOException e) {
-                CovetGUIUtils.getPlugin(CovetGUIUtils.class).getLogger().severe("FAILED to create /gui/ folder: " + e.getMessage());
+                logger.error("FAILED to create /gui/ folder: " + e.getMessage());
                 return;
             }
         }
@@ -58,11 +58,11 @@ public class GUIConfigurationHelper {
                         temporaryMap.put(name, config);
                     }
                 } catch (Exception e) {
-                    CovetGUIUtils.getPlugin(CovetGUIUtils.class).getLogger().severe("Could not load config: " + fileName + " - " + e.getMessage());
+                    logger.error("Could not load config: " + fileName + " - " + e.getMessage());
                 }
             }
         } catch (IOException e) {
-            CovetGUIUtils.getPlugin(CovetGUIUtils.class).getLogger().severe("Directory traversal failed: " + e.getMessage());
+            logger.error("Directory traversal failed: " + e.getMessage());
         }
 
         guiMap = temporaryMap;
@@ -86,7 +86,7 @@ public class GUIConfigurationHelper {
         try {
             Files.writeString(path, content);
         } catch (IOException e) {
-            CovetGUIUtils.getPlugin(CovetGUIUtils.class).getLogger().severe("Could not create example file: " + e.getMessage());
+            logger.error("Could not create example file: " + e.getMessage());
         }
     }
 

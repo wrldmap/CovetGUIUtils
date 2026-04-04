@@ -16,7 +16,7 @@ public final class CovetGUIUtils extends JavaPlugin {
     public static boolean isPapiPresent;
     public static boolean doesPluginFolderExist;
     public static final MiniMessage miniMessage = MiniMessage.miniMessage();
-    public static final ComponentLogger logger = ComponentLogger.logger();
+    public final ComponentLogger logger = getPlugin(CovetGUIUtils.class).getComponentLogger();
 
     @Override
     public void onEnable() {
@@ -30,10 +30,11 @@ public final class CovetGUIUtils extends JavaPlugin {
             isNexoPresent = true;
         }
         if (isItemsAdderPresent && isOraxenPresent) {
-            logger.debug("[CovetGUIUtils] ItemsAdder and Oraxen both present. Oraxen will override ItemsAdder by default and cause issues. We will NOT provide support for these setups.");
+            logger.warn("ItemsAdder and Oraxen both present. Oraxen will override ItemsAdder by default and cause issues. We will NOT provide support for these setups.");
+            logger.info("I heard ResourcePackManager by MagmaGuy works well for this... #NotSponsored");
         }
         if (isNexoPresent) {
-            logger.debug("[CovetGUIUtils] Nexo is currently completely untested, and issues may arise. Please report issues that come up on GitHub.");
+            logger.warn("Nexo is currently completely untested, and issues may arise. Please report issues that come up on GitHub.");
         }
         if (getServer().getPluginManager().getPlugin("placeholderapi") != null) {
             isPapiPresent = true;

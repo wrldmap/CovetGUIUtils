@@ -21,7 +21,6 @@ public class OpenGUI {
         return Commands.literal("opengui")
                 .then(Commands.argument("gui_name", StringArgumentType.word())
                         .suggests((context, builder) -> {
-                            // Get keys from our new Helper map
                             Set<String> guis = GUIConfigurationHelper.getGuiMap().keySet();
                             String input = builder.getRemaining().toLowerCase();
 
@@ -49,7 +48,7 @@ public class OpenGUI {
     private int openSpecificGUI(CommandContext<CommandSourceStack> context, String name) {
         if (context.getSource().getSender() instanceof Player player) {
             Inventory inv = DynamicGUIHelper.getInstance().createConfigBasedGUI(player, name);
-            TexturedInventoryWrapper invwrap = DynamicGUIHelper.iawrapper;
+            TexturedInventoryWrapper invwrap = DynamicGUIHelper.getInstance().iawrapper;
 
             if (inv != null && invwrap != null) {
                 invwrap.showInventory(player);

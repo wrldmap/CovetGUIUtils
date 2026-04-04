@@ -21,7 +21,7 @@ public class DynamicGUIHelper implements InventoryHolder {
     private static DynamicGUIHelper instance;
     private boolean guiWasSet;
     public Inventory gui;
-    public static TexturedInventoryWrapper iawrapper;
+    public TexturedInventoryWrapper iawrapper;
 
     public DynamicGUIHelper() {
         instance = this;
@@ -29,9 +29,10 @@ public class DynamicGUIHelper implements InventoryHolder {
 
     public Inventory createConfigBasedGUI(Player player, String guiName) {
         GUIConfigurationHelper.GuiConfig data = GUIConfigurationHelper.getGuiMap().get(guiName);
-
         if (data == null) return null;
-
+        guiWasSet = false;
+        iawrapper = null;
+        this.gui = null;
         int slots = data.rows * 9;
 
         Component title = parseText(player, data.title);
@@ -83,16 +84,11 @@ public class DynamicGUIHelper implements InventoryHolder {
         String shift = OraxenPlugin.get().getFontManager().getShiftProvider().getShiftString(data.shift);
 
         return Component.text()
-                // Start with the shift to "reset" the cursor to the left edge
                 .append(Component.text(shift).font(Key.key("oraxen", "shift")))
-
-                // Add the background glyph
                 .append(Component.text(glyph.getCharacter())
                         .font(Key.key("minecraft", "default"))
                         .color(NamedTextColor.WHITE) // FIXES THE DARKNESS
                         .decoration(TextDecoration.ITALIC, false)) // FIXES TILT
-
-                // Finally, the actual title text
                 .append(displayTitle)
                 .build();
     }

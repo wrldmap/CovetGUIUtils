@@ -9,7 +9,7 @@ public class API {
     public void openInventory(Player player, String name) {
         if (player != null) {
             Inventory inv = DynamicGUIHelper.getInstance().createConfigBasedGUI(player, name);
-            TexturedInventoryWrapper invwrap = DynamicGUIHelper.iawrapper;
+            TexturedInventoryWrapper invwrap = DynamicGUIHelper.getInstance().iawrapper;
 
             if (inv != null && invwrap != null) {
                 invwrap.showInventory(player);

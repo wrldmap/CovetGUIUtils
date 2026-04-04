@@ -3,9 +3,9 @@ version: '1.0-SNAPSHOT'
 main: gg.wrldmap.covetGUIUtils.CovetGUIUtils
 bootstrapper: gg.wrldmap.covetGUIUtils.Bootstrapper
 api-version: '1.21.11'
-prefix: [ GUIUtils ]
 authors: [ wrldmap ]
 description: Utilities for easy GUI creation.
+folia-supported: true
 website: https://covet.network
 dependencies:
   server:
@@ -13,6 +13,9 @@ dependencies:
       load: BEFORE
       required: FALSE
     Oraxen:
+      load: BEFORE
+      required: FALSE
+    Nexo:
       load: BEFORE
       required: FALSE
     PlaceholderAPI:

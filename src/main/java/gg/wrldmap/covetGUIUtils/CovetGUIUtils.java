@@ -1,21 +1,32 @@
 package gg.wrldmap.covetGUIUtils;
 
+import ch.njol.skript.Skript;
+import ch.njol.skript.classes.ClassInfo;
+import ch.njol.skript.classes.Parser;
+import ch.njol.skript.lang.ParseContext;
+import ch.njol.skript.registrations.Classes;
+import gg.wrldmap.covetGUIUtils.api.GuiConfig;
+import gg.wrldmap.covetGUIUtils.api.GuiItems;
 import gg.wrldmap.covetGUIUtils.command.OpenGUI;
 import gg.wrldmap.covetGUIUtils.gui.DynamicGUIHelper;
 import gg.wrldmap.covetGUIUtils.gui.GUIConfigurationHelper;
 import gg.wrldmap.covetGUIUtils.gui.GUIListener;
+import gg.wrldmap.covetGUIUtils.skript.SkriptSupport;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import net.kyori.adventure.text.logger.slf4j.ComponentLogger;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class CovetGUIUtils extends JavaPlugin {
     public static boolean isItemsAdderPresent;
     public static boolean isOraxenPresent;
     public static boolean isNexoPresent;
+    public static boolean isSkriptPresent;
     public static boolean isPapiPresent;
     public static boolean doesPluginFolderExist;
     public static final MiniMessage miniMessage = MiniMessage.miniMessage();
+    public static final String mcver = Bukkit.getServer().getMinecraftVersion();
     public final ComponentLogger logger = getPlugin(CovetGUIUtils.class).getComponentLogger();
 
     @Override
@@ -28,6 +39,9 @@ public final class CovetGUIUtils extends JavaPlugin {
         }
         if (getServer().getPluginManager().getPlugin("nexo") != null) {
             isNexoPresent = true;
+        }
+        if (getServer().getPluginManager().getPlugin("skript") != null) {
+            isSkriptPresent = true;
         }
         if (isItemsAdderPresent && isOraxenPresent) {
             logger.warn("ItemsAdder and Oraxen both present. Oraxen will override ItemsAdder by default and cause issues. We will NOT provide support for these setups.");
@@ -51,6 +65,11 @@ public final class CovetGUIUtils extends JavaPlugin {
         getLifecycleManager().registerEventHandler(LifecycleEvents.COMMANDS, event -> {
             event.registrar().register(new OpenGUI().getCommandNode(), "Opens a custom GUI", java.util.List.of("gui"));
         });
+
+        if (isSkriptPresent) {
+            SkriptSupport.register(this);
+            logger.info("Skript support enabled!");
+        }
     }
 
     @Override

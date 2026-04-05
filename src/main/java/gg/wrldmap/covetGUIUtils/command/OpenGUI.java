@@ -16,7 +16,6 @@ import org.bukkit.inventory.Inventory;
 import java.util.Set;
 
 public class OpenGUI {
-
     public LiteralCommandNode<CommandSourceStack> getCommandNode() {
         return Commands.literal("opengui")
                 .then(Commands.argument("gui_name", StringArgumentType.word())

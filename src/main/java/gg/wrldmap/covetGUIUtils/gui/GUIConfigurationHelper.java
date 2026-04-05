@@ -92,8 +92,7 @@ public class GUIConfigurationHelper {
 
     @ConfigSerializable
     public static class GuiConfig {
-        public String type = "chest";
-        public String title = "Menu";
+        public String title = "";
         public int rows = 3;
         public String background;
         public int shift = 0;

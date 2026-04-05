@@ -26,16 +26,21 @@ repositories {
         url = "https://repo.nexomc.com/releases/"
     }
     maven {
+        name = "skript"
+        url = "https://repo.skriptlang.org/releases/"
+    }
+    maven {
         name = "placeholderapi"
         url = "https://repo.extendedclip.com/releases/"
     }
 }
 
 dependencies {
-    compileOnly("io.papermc.paper:paper-api:1.21.11-R0.1-SNAPSHOT")
-    compileOnly("dev.lone:api-itemsadder:4.0.10")
+    compileOnly("io.papermc.paper:paper-api:1.21.11-rc3-R0.1-20251208.200020-2")
+    compileOnly("dev.lone:api-itemsadder:4.0.10") //is NOT equal to latest IA version
     compileOnly("io.th0rgal:oraxen:1.211.0")
     compileOnly("com.nexomc:nexo:1.21.0")
+    compileOnly("com.github.SkriptLang:Skript:2.14.3")
     compileOnly("me.clip:placeholderapi:2.12.2")
     implementation("org.spongepowered:configurate-hocon:4.2.0")
 }

@@ -18,6 +18,9 @@ dependencies:
     Nexo:
       load: BEFORE
       required: FALSE
+    Skript:
+      load: BEFORE
+      required: FALSE
     PlaceholderAPI:
       load: BEFORE
       required: TRUE

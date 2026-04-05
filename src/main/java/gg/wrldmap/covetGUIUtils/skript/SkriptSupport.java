@@ -55,6 +55,7 @@ public class SkriptSupport {
                         .build()
         );
 
+        // Useless without GuiItems working.
         registry.register(SyntaxRegistry.EFFECT,
                 SyntaxInfo.builder(EffectAddItemToGui.class)
                         .addPatterns("add gui item %guiitem% to slot %number% of %guiconfig%")

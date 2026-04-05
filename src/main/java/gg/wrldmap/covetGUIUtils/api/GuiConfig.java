@@ -9,7 +9,7 @@ public class GuiConfig {
     private String title = "";
     private int rows = 3;
     private String background = null;
-    private Integer shift = null;
+    private Integer shift = 0;
     private final Map<Integer, GuiItems> items = new LinkedHashMap<>();
 
     private GuiConfig() {}
@@ -42,6 +42,10 @@ public class GuiConfig {
                 throw new IllegalStateException("rows must be between 1 and 6");
             return config;
         }
+    }
+
+    public void addItem(int slot, GuiItems item) {
+        items.put(slot, item);
     }
 
     // Getters

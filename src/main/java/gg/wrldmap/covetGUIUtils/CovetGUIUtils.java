@@ -66,9 +66,9 @@ public final class CovetGUIUtils extends JavaPlugin {
             event.registrar().register(new OpenGUI().getCommandNode(), "Opens a custom GUI", java.util.List.of("gui"));
         });
 
-        if (isSkriptPresent) {
-            SkriptSupport.register(this);
-            logger.info("Skript support enabled!");
+        if (isSkriptPresent) { // No more Skript for you! (fix later)
+            //SkriptSupport.register(this);
+            //logger.info("Skript support enabled!");
         }
     }
 

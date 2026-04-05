@@ -27,9 +27,9 @@ public class SkriptSupport {
                 })
         );
 
-        Classes.registerClass(new ClassInfo<>(GuiItems.class, "guiitems")
+        Classes.registerClass(new ClassInfo<>(GuiItems.class, "guiitem")
                 .user("gui ?items?")
-                .name("GuiItems")
+                .name("GuiItem")
                 .description("A CovetGUI item object built via the API.")
                 .since("1.0")
                 .parser(new Parser<>() {
@@ -45,31 +45,38 @@ public class SkriptSupport {
 
         registry.register(SyntaxRegistry.EFFECT,
                 SyntaxInfo.builder(EffectOpenCfgGui.class)
-                        .addPattern("open [covet] gui [named] %string% to %player%")
+                        .addPatterns("open [covet] gui [named] %string% to %player%")
                         .build()
         );
 
         registry.register(SyntaxRegistry.EFFECT,
                 SyntaxInfo.builder(EffectOpenExtGui.class)
-                        .addPattern("open [covet] custom gui %guiconfig% to %player%")
+                        .addPatterns("open [covet] custom gui %guiconfig% to %player%")
+                        .build()
+        );
+
+        registry.register(SyntaxRegistry.EFFECT,
+                SyntaxInfo.builder(EffectAddItemToGui.class)
+                        .addPatterns("add gui item %guiitem% to slot %number% of %guiconfig%")
                         .build()
         );
 
         registry.register(SyntaxRegistry.EXPRESSION,
                 SyntaxInfo.Expression.builder(ExprGuiConfig.class, GuiConfig.class)
                         .priority(SyntaxInfo.COMBINED)
-                        .addPattern("gui config [with] title %string% [with] rows %number% [with items %-guiitems%]")
+                        .addPatterns("gui config [with] title %string% [with] rows %number%")
                         .build()
         );
 
-        registry.register(SyntaxRegistry.EXPRESSION,
+        // TODO: Fix this.
+        /*registry.register(SyntaxRegistry.EXPRESSION,
                 SyntaxInfo.Expression.builder(ExprGuiItem.class, GuiItems.class)
                         .priority(SyntaxInfo.COMBINED)
-                        .addPattern(
-                                "gui item [with] material %string% [named %-string%] [(with command|running) %-string%] " +
-                                        "[(with|and) exit:exit] [(with|and) sound:sound %-string%]"
+                        .addPatterns(
+                                "gui item with material %string% [named %-string%] [running %-string%] " +
+                                        "[exit:closing] [sound:playing sound %-string%]"
                         )
                         .build()
-        );
+        );*/
     }
 }

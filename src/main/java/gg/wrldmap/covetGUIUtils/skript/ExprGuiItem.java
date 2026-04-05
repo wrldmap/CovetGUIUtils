@@ -11,6 +11,7 @@ import ch.njol.util.Kleenean;
 import gg.wrldmap.covetGUIUtils.api.GuiItems;
 import org.bukkit.event.Event;
 
+// TODO: This doesn't work, and I don't know why. Skript is stupid sometimes.
 @Name("GUI Item")
 @Description("Constructs a CovetGUI item with a material, optional display name, command, exit flag, and sound.")
 @Examples("set {_item} to gui item with material \"diamond\" named \"&bGem\" running \"say hello\" with exit")

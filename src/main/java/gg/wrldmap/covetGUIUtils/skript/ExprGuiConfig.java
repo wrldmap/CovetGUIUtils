@@ -28,7 +28,6 @@ public class ExprGuiConfig extends SimpleExpression<GuiConfig> {
                         Kleenean isDelayed, SkriptParser.ParseResult parseResult) {
         title = (Expression<String>)   exprs[0];
         rows  = (Expression<Number>)   exprs[1];
-        items = (Expression<GuiItems>) exprs[2];
         return true;
     }
 

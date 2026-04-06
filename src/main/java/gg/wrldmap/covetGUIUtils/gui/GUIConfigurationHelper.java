@@ -1,15 +1,11 @@
 package gg.wrldmap.covetGUIUtils.gui;
 
-import com.nexomc.nexo.api.NexoItems;
 import gg.wrldmap.covetGUIUtils.CovetGUIUtils;
-import io.th0rgal.oraxen.api.OraxenItems;
+import gg.wrldmap.covetGUIUtils.api.GuiConfig;
+import gg.wrldmap.covetGUIUtils.api.GuiItems;
 import net.kyori.adventure.text.logger.slf4j.ComponentLogger;
-import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
 import org.spongepowered.configurate.CommentedConfigurationNode;
 import org.spongepowered.configurate.hocon.HoconConfigurationLoader;
-import org.spongepowered.configurate.objectmapping.ConfigSerializable;
-import org.spongepowered.configurate.objectmapping.meta.Setting;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -40,7 +36,9 @@ public class GUIConfigurationHelper {
         }
 
         try (Stream<Path> paths = Files.walk(guiFolder, 1)) {
-            List<Path> files = paths.filter(p -> Files.isRegularFile(p) && p.toString().endsWith(".conf")).toList();
+            List<Path> files = paths
+                    .filter(p -> Files.isRegularFile(p) && p.toString().endsWith(".conf"))
+                    .toList();
 
             for (Path path : files) {
                 String fileName = path.getFileName().toString();
@@ -51,14 +49,46 @@ public class GUIConfigurationHelper {
                             .path(path)
                             .build();
 
-                    CommentedConfigurationNode node = loader.load();
-                    GuiConfig config = node.get(GuiConfig.class);
+                    CommentedConfigurationNode root = loader.load();
 
-                    if (config != null) {
-                        temporaryMap.put(name, config);
+                    // Read top-level fields
+                    String title      = root.node("title").getString("");
+                    int rows          = root.node("rows").getInt(3);
+                    String background = root.node("background").virtual() ? null : root.node("background").getString("");
+                    int shift         = root.node("shift").getInt(0);
+
+                    GuiConfig.Builder builder = GuiConfig.builder()
+                            .name(name)
+                            .title(title)
+                            .rows(rows)
+                            .shift(shift);
+
+                    if (background != null) builder.background(background);
+
+                    // Read items block
+                    CommentedConfigurationNode itemsNode = root.node("items");
+                    if (!itemsNode.virtual()) {
+                        for (var entry : itemsNode.childrenMap().entrySet()) {
+                            int slot;
+                            try {
+                                slot = Integer.parseInt(entry.getKey().toString());
+                            } catch (NumberFormatException e) {
+                                logger.warn("Skipping non-integer slot key '" + entry.getKey() + "' in " + fileName);
+                                continue;
+                            }
+
+                            CommentedConfigurationNode itemNode = entry.getValue();
+                            GuiItems item = parseItem(itemNode);
+                            builder.item(slot, item);
+                        }
                     }
+
+                    GuiConfig config = builder.build();
+                    temporaryMap.put(name, config);
+
                 } catch (Exception e) {
                     logger.error("Could not load config: " + fileName + " - " + e.getMessage());
+                    e.printStackTrace();
                 }
             }
         } catch (IOException e) {
@@ -68,9 +98,36 @@ public class GUIConfigurationHelper {
         guiMap = temporaryMap;
     }
 
+    private GuiItems parseItem(CommentedConfigurationNode node) throws Exception {
+        String material    = node.node("material").getString("stone");
+        String displayName = node.node("display-name").getString("");
+        String command     = node.node("command").virtual() ? null : node.node("command").getString("");
+        boolean exit       = node.node("exit").getBoolean(false);
+        boolean playSound  = node.node("play-sound").getBoolean(false);
+        String sound       = node.node("sound").getString("ui.button.click");
+
+        List<String> lore = new ArrayList<>();
+        CommentedConfigurationNode loreNode = node.node("lore");
+        if (!loreNode.virtual()) {
+            for (CommentedConfigurationNode line : loreNode.childrenList()) {
+                lore.add(line.getString(""));
+            }
+        }
+
+        // Adjust this builder chain to match whatever setters GuiItems.Builder exposes
+        return GuiItems.builder()
+                .material(material)
+                .displayName(displayName)
+                .lore(lore)
+                .command(command)
+                .exit(exit)
+                .playSound(playSound)
+                .sound(sound)
+                .build();
+    }
+
     private void createExampleFile(Path path) {
         String content = """
-                type = "chest"
                 title = "<blue><bold>Example Menu"
                 rows = 3
                 items {
@@ -78,7 +135,7 @@ public class GUIConfigurationHelper {
                     material = "compass"
                     display-name = "<green>Welcome!"
                     lore = ["<gray>This is an auto-generated GUI"]
-                    playSound = true
+                    play-sound = true
                     sound = "ui.button.click"
                   }
                 }
@@ -87,72 +144,6 @@ public class GUIConfigurationHelper {
             Files.writeString(path, content);
         } catch (IOException e) {
             logger.error("Could not create example file: " + e.getMessage());
-        }
-    }
-
-    @ConfigSerializable
-    public static class GuiConfig {
-        public String title = "";
-        public int rows = 3;
-        public String background;
-        public int shift = 0;
-        public Map<Integer, GuiItem> items = new HashMap<>();
-    }
-
-    @ConfigSerializable
-    public static class GuiItem {
-        public String material = "stone";
-        @Setting("display-name")
-        public String displayName = "";
-        public List<String> lore = new ArrayList<>();
-        public String command = null;
-        public boolean exit = false;
-        @Setting("play-sound")
-        public boolean playSound = false;
-        public String sound = "ui.button.click";
-
-        public ItemStack createItemStack(org.bukkit.entity.Player player) {
-            ItemStack item = null;
-
-            Material vanillaMat = Material.getMaterial(material.toUpperCase());
-            if (vanillaMat != null) {
-                item = new ItemStack(vanillaMat);
-            }
-
-            if (item == null && CovetGUIUtils.isItemsAdderPresent) {
-                dev.lone.itemsadder.api.CustomStack stack = dev.lone.itemsadder.api.CustomStack.getInstance(material);
-                if (stack != null) {
-                    item = stack.getItemStack();
-                }
-            }
-
-            if (item == null && CovetGUIUtils.isOraxenPresent) {
-                io.th0rgal.oraxen.items.ItemBuilder oraxenItem = OraxenItems.getItemById(material);
-                if (oraxenItem != null) {
-                    item = oraxenItem.build();
-                }
-            }
-
-            if (item == null && CovetGUIUtils.isNexoPresent) {
-                com.nexomc.nexo.items.ItemBuilder nexoItem = NexoItems.itemFromId(material);
-                if (nexoItem != null) {
-                    item = nexoItem.build();
-                }
-            }
-
-            if (item == null) item = new ItemStack(org.bukkit.Material.STONE);
-
-            item.editMeta(meta -> {
-                meta.displayName(DynamicGUIHelper.parseText(player, displayName));
-
-                java.util.List<net.kyori.adventure.text.Component> adventureLore = new java.util.ArrayList<>();
-                for (String line : lore) {
-                    adventureLore.add(DynamicGUIHelper.parseText(player, line));
-                }
-                meta.lore(adventureLore);
-            });
-
-            return item;
         }
     }
 }

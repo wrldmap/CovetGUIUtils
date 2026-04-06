@@ -24,34 +24,35 @@ public class DynamicGUIHelper implements InventoryHolder {
     private boolean guiWasSet;
     public Inventory gui;
     public TexturedInventoryWrapper iawrapper;
+    private GuiConfig activeApiConfig;
 
     public DynamicGUIHelper() {
         instance = this;
     }
 
     public Inventory createConfigBasedGUI(Player player, String guiName) {
-        GUIConfigurationHelper.GuiConfig data = GUIConfigurationHelper.getGuiMap().get(guiName);
+        GuiConfig data = GUIConfigurationHelper.getGuiMap().get(guiName);
         if (data == null) return null;
         guiWasSet = false;
         iawrapper = null;
         this.gui = null;
-        int slots = data.rows * 9;
-        int shift = data.shift;
+        int slots = data.getRows() * 9;
+        int shift = data.getShift();
 
-        Component title = parseText(player, data.title);
+        Component title = parseText(player, data.getTitle());
         String legacyTitle = LegacyComponentSerializer.legacySection().serialize(title);
 
-        if (data.background != null) {
+        if (data.getBackground() != null) {
             if (CovetGUIUtils.isItemsAdderPresent && !guiWasSet) {
-                if (FontImageWrapper.getNamespacedIdsInRegistry().contains(data.background)) {
-                    FontImageWrapper IAbg = new FontImageWrapper(data.background);
+                if (FontImageWrapper.getNamespacedIdsInRegistry().contains(data.getBackground())) {
+                    FontImageWrapper IAbg = new FontImageWrapper(data.getBackground());
                     iawrapper = new TexturedInventoryWrapper(this, slots, legacyTitle, IAbg);
                     this.gui = iawrapper.getInternal();
                     guiWasSet = true;
                 }
             }
             if (CovetGUIUtils.isNexoPresent && !guiWasSet) {
-                com.nexomc.nexo.glyphs.Glyph glyph = NexoPlugin.instance().fontManager().glyphFromName(data.background);
+                com.nexomc.nexo.glyphs.Glyph glyph = NexoPlugin.instance().fontManager().glyphFromName(data.getBackground());
                 if (glyph != null) {
                     iawrapper = null;
                     this.gui = Bukkit.createInventory(this, slots, buildNexoTitle(glyph, title, shift));
@@ -59,7 +60,7 @@ public class DynamicGUIHelper implements InventoryHolder {
                 }
             }
             if (CovetGUIUtils.isOraxenPresent && !guiWasSet) {
-                io.th0rgal.oraxen.font.Glyph glyph = OraxenPlugin.get().getFontManager().getGlyphFromName(data.background);
+                io.th0rgal.oraxen.font.Glyph glyph = OraxenPlugin.get().getFontManager().getGlyphFromName(data.getBackground());
                 if (glyph != null) {
                     iawrapper = null;
                     this.gui = Bukkit.createInventory(this, slots, buildOraxenTitle(glyph, title, shift));
@@ -72,12 +73,21 @@ public class DynamicGUIHelper implements InventoryHolder {
             this.gui = Bukkit.createInventory(this, slots, title);
         }
 
-        data.items.forEach((slot, itemData) -> {
+        GuiConfig.Builder apiConfigBuilder = GuiConfig.builder()
+                .name(guiName)
+                .title(data.getTitle())
+                .rows(data.getRows())
+                .shift(data.getShift());
+        if (data.getBackground() != null) apiConfigBuilder.background(data.getBackground());
+
+        data.getItems().forEach((slot, itemData) -> {
             if (slot >= 0 && slot < slots) {
                 gui.setItem(slot, itemData.createItemStack(player));
+                apiConfigBuilder.item(slot, itemData);
             }
         });
 
+        this.activeApiConfig = apiConfigBuilder.build();
         return gui;
     }
 
@@ -113,6 +123,7 @@ public class DynamicGUIHelper implements InventoryHolder {
         guiWasSet = false;
         iawrapper = null;
         this.gui = null;
+        this.activeApiConfig = config;
 
         int slots = config.getRows() * 9;
         Component title = parseText(player, config.getTitle());
@@ -176,5 +187,9 @@ public class DynamicGUIHelper implements InventoryHolder {
 
     public static DynamicGUIHelper getInstance() {
         return instance;
+    }
+
+    public GuiConfig getActiveApiConfig() {
+        return activeApiConfig;
     }
 }

@@ -55,7 +55,6 @@ public class SkriptSupport {
                         .build()
         );
 
-        // Useless without GuiItems working.
         registry.register(SyntaxRegistry.EFFECT,
                 SyntaxInfo.builder(EffectAddItemToGui.class)
                         .addPatterns("add gui item %guiitem% to slot %number% of %guiconfig%")
@@ -69,8 +68,7 @@ public class SkriptSupport {
                         .build()
         );
 
-        // TODO: Fix this.
-        /*registry.register(SyntaxRegistry.EXPRESSION,
+        registry.register(SyntaxRegistry.EXPRESSION,
                 SyntaxInfo.Expression.builder(ExprGuiItem.class, GuiItems.class)
                         .priority(SyntaxInfo.COMBINED)
                         .addPatterns(
@@ -78,6 +76,6 @@ public class SkriptSupport {
                                         "[exit:closing] [sound:playing sound %-string%]"
                         )
                         .build()
-        );*/
+        );
     }
 }

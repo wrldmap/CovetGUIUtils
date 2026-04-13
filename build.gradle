@@ -149,6 +149,10 @@ publishing {
     }
 }
 
+tasks.withType(PublishToMavenRepository).configureEach {
+    dependsOn tasks.withType(Sign)
+}
+
 tasks.register('publishToGitHubPackages') {
     dependsOn tasks.named('publishMavenJavaPublicationToGitHubPackagesRepository')
 }

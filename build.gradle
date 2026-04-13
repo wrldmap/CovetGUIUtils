@@ -2,7 +2,6 @@ plugins {
     id 'java'
     id 'java-library'
     id 'maven-publish'
-    id 'signing'
     id("xyz.jpenilla.run-paper") version "2.3.1"
     id("com.gradleup.shadow") version "8.3.0"
     id("com.vanniktech.maven.publish") version "0.30.0"
@@ -135,8 +134,6 @@ publishing {
             version    = project.version
 
             artifact(tasks.shadowJar) { classifier = '' }
-            artifact(tasks.sourcesJar)
-            artifact(tasks.javadocJar)
         }
     }
 

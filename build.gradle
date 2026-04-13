@@ -111,7 +111,7 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             groupId    = 'io.github.wrldmap'
-            artifactId = 'CovetGUIUtils'
+            artifactId = 'covetguiutils'
             version    = project.version
 
             // Publish the shadow jar as the primary artifact

@@ -1,11 +1,11 @@
-package io.github.wrldmap.covetGUIUtils.command;
+package io.github.wrldmap.covetguiutils.command;
 
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import dev.lone.itemsadder.api.FontImages.TexturedInventoryWrapper;
-import io.github.wrldmap.covetGUIUtils.gui.DynamicGUIHelper;
-import io.github.wrldmap.covetGUIUtils.gui.GUIConfigurationHelper;
+import io.github.wrldmap.covetguiutils.gui.DynamicGUIHelper;
+import io.github.wrldmap.covetguiutils.gui.GUIConfigurationHelper;
 import io.papermc.paper.command.brigadier.CommandSourceStack;
 import io.papermc.paper.command.brigadier.Commands;
 import net.kyori.adventure.text.Component;

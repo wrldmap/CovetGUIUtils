@@ -1,4 +1,4 @@
-package io.github.wrldmap.covetGUIUtils.skript;
+package io.github.wrldmap.covetguiutils.skript;
 
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
@@ -8,7 +8,7 @@ import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
-import io.github.wrldmap.covetGUIUtils.api.Manager;
+import io.github.wrldmap.covetguiutils.api.Manager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 

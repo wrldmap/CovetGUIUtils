@@ -1,6 +1,6 @@
 name: CovetGUIUtils
 version: ${version}
-main: io.github.wrldmap.covetGUIUtils.CovetGUIUtils
+main: io.github.wrldmap.covetguiutils.CovetGUIUtils
 bootstrapper: gg.wrldmap.covetGUIUtils.Bootstrapper
 api-version: '1.21.11'
 authors: [ wrldmap ]

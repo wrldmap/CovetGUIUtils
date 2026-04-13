@@ -1,8 +1,8 @@
-package io.github.wrldmap.covetGUIUtils.gui;
+package io.github.wrldmap.covetguiutils.gui;
 
-import io.github.wrldmap.covetGUIUtils.CovetGUIUtils;
-import io.github.wrldmap.covetGUIUtils.api.GuiConfig;
-import io.github.wrldmap.covetGUIUtils.api.GuiItems;
+import io.github.wrldmap.covetguiutils.CovetGUIUtils;
+import io.github.wrldmap.covetguiutils.api.GuiConfig;
+import io.github.wrldmap.covetguiutils.api.GuiItems;
 import net.kyori.adventure.text.logger.slf4j.ComponentLogger;
 import org.spongepowered.configurate.CommentedConfigurationNode;
 import org.spongepowered.configurate.hocon.HoconConfigurationLoader;

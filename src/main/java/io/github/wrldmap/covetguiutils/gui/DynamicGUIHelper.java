@@ -1,10 +1,10 @@
-package io.github.wrldmap.covetGUIUtils.gui;
+package io.github.wrldmap.covetguiutils.gui;
 
 import com.nexomc.nexo.NexoPlugin;
 import dev.lone.itemsadder.api.FontImages.FontImageWrapper;
 import dev.lone.itemsadder.api.FontImages.TexturedInventoryWrapper;
-import io.github.wrldmap.covetGUIUtils.CovetGUIUtils;
-import io.github.wrldmap.covetGUIUtils.api.GuiConfig;
+import io.github.wrldmap.covetguiutils.CovetGUIUtils;
+import io.github.wrldmap.covetguiutils.api.GuiConfig;
 import io.th0rgal.oraxen.OraxenPlugin;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.kyori.adventure.key.Key;

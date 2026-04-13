@@ -1,10 +1,10 @@
-package io.github.wrldmap.covetGUIUtils;
+package io.github.wrldmap.covetguiutils;
 
-import io.github.wrldmap.covetGUIUtils.command.OpenGUI;
-import io.github.wrldmap.covetGUIUtils.gui.DynamicGUIHelper;
-import io.github.wrldmap.covetGUIUtils.gui.GUIConfigurationHelper;
-import io.github.wrldmap.covetGUIUtils.gui.GUIListener;
-import io.github.wrldmap.covetGUIUtils.skript.SkriptSupport;
+import io.github.wrldmap.covetguiutils.command.OpenGUI;
+import io.github.wrldmap.covetguiutils.gui.DynamicGUIHelper;
+import io.github.wrldmap.covetguiutils.gui.GUIConfigurationHelper;
+import io.github.wrldmap.covetguiutils.gui.GUIListener;
+import io.github.wrldmap.covetguiutils.skript.SkriptSupport;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import net.kyori.adventure.text.logger.slf4j.ComponentLogger;
 import net.kyori.adventure.text.minimessage.MiniMessage;

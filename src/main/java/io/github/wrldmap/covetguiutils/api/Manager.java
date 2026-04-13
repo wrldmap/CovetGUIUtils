@@ -1,7 +1,7 @@
-package io.github.wrldmap.covetGUIUtils.api;
+package io.github.wrldmap.covetguiutils.api;
 
 import dev.lone.itemsadder.api.FontImages.TexturedInventoryWrapper;
-import io.github.wrldmap.covetGUIUtils.gui.DynamicGUIHelper;
+import io.github.wrldmap.covetguiutils.gui.DynamicGUIHelper;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 

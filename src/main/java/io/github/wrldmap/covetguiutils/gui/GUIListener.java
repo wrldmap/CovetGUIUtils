@@ -1,7 +1,7 @@
-package io.github.wrldmap.covetGUIUtils.gui;
+package io.github.wrldmap.covetguiutils.gui;
 
-import io.github.wrldmap.covetGUIUtils.api.GuiConfig;
-import io.github.wrldmap.covetGUIUtils.api.GuiItems;
+import io.github.wrldmap.covetguiutils.api.GuiConfig;
+import io.github.wrldmap.covetguiutils.api.GuiItems;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

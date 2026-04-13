@@ -3,9 +3,9 @@ plugins {
     id 'java-library'
     id 'maven-publish'
     id 'signing'
-    id("com.vanniktech.maven.publish") version "0.30.0"
     id("xyz.jpenilla.run-paper") version "2.3.1"
     id("com.gradleup.shadow") version "8.3.0"
+    id("com.vanniktech.maven.publish") version "0.30.0"
 }
 
 group = 'io.github.wrldmap'
@@ -41,7 +41,7 @@ repositories {
 
 dependencies {
     compileOnly("io.papermc.paper:paper-api:1.21.11-rc3-R0.1-20251208.200020-2")
-    compileOnly("dev.lone:api-itemsadder:4.0.10") //is NOT equal to latest IA version
+    compileOnly("dev.lone:api-itemsadder:4.0.10")
     compileOnly("io.th0rgal:oraxen:1.211.0")
     compileOnly("com.nexomc:nexo:1.21.0")
     compileOnly("com.github.SkriptLang:Skript:2.14.3")
@@ -49,16 +49,8 @@ dependencies {
     implementation("org.spongepowered:configurate-hocon:4.2.0")
 }
 
-tasks {
-    runServer {
-        // Configure the Minecraft version for our task.
-        // This is the only required configuration besides applying the plugin.
-        // Your plugin's jar (or shadowJar if present) will be used automatically.
-        minecraftVersion("1.21.10")
-    }
-}
-
 def targetJavaVersion = 21
+
 java {
     def javaVersion = JavaVersion.toVersion(targetJavaVersion)
     sourceCompatibility = javaVersion
@@ -66,19 +58,12 @@ java {
     if (JavaVersion.current() < javaVersion) {
         toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
     }
-
     withSourcesJar()
     withJavadocJar()
 }
 
-shadowJar {
-    relocate 'org.spongepowered.configurate', 'io.github.wrldmap.libs.configurate'
-    archiveClassifier.set('all')
-}
-
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
-
     if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
         options.release.set(targetJavaVersion)
     }
@@ -86,6 +71,17 @@ tasks.withType(JavaCompile).configureEach {
 
 tasks.withType(Javadoc).configureEach {
     options.addStringOption('Xdoclint:none', '-quiet')
+}
+
+shadowJar {
+    relocate 'org.spongepowered.configurate', 'io.github.wrldmap.libs.configurate'
+    archiveClassifier.set('all')
+}
+
+tasks {
+    runServer {
+        minecraftVersion("1.21.10")
+    }
 }
 
 processResources {
@@ -97,19 +93,8 @@ processResources {
     }
 }
 
-afterEvaluate {
-    signing {
-        def signingKey      = System.getenv('SIGNING_KEY')
-        def signingPassword = System.getenv('SIGNING_PASSWORD')
-        if (signingKey && signingPassword) {
-            useInMemoryPgpKeys(signingKey, signingPassword)
-            sign publishing.publications
-        }
-    }
-}
-
 mavenPublishing {
-    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+    publishToMavenCentral(com.vanniktech.maven.publish.SonatypeHost.CENTRAL_PORTAL)
     signAllPublications()
 
     coordinates('io.github.wrldmap', 'covetguiutils', project.version.toString())
@@ -169,8 +154,4 @@ publishing {
 
 tasks.register('publishToGitHubPackages') {
     dependsOn tasks.named('publishMavenJavaPublicationToGitHubPackagesRepository')
-}
-
-tasks.register('publishToMavenCentral') {
-    dependsOn tasks.named('publishAndReleaseToMavenCentral')
 }

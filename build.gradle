@@ -3,6 +3,7 @@ plugins {
     id 'java-library'
     id 'maven-publish'
     id 'signing'
+    id("com.vanniktech.maven.publish") version "0.30.0"
     id("xyz.jpenilla.run-paper") version "2.3.1"
     id("com.gradleup.shadow") version "8.3.0"
 }
@@ -107,6 +108,40 @@ afterEvaluate {
     }
 }
 
+mavenPublishing {
+    publishToMavenCentral(SonatypeHost.CENTRAL_PORTAL)
+    signAllPublications()
+
+    coordinates('io.github.wrldmap', 'covetguiutils', project.version.toString())
+
+    pom {
+        name = 'CovetGUIUtils'
+        description = 'A GUI utilities library/plugin for Paper Minecraft servers.'
+        url = 'https://github.com/wrldmap/CovetGUIUtils'
+
+        licenses {
+            license {
+                name = 'MIT License'
+                url  = 'https://opensource.org/licenses/MIT'
+            }
+        }
+
+        developers {
+            developer {
+                id   = 'wrldmap'
+                name = 'wrldmap'
+                url  = 'https://github.com/wrldmap'
+            }
+        }
+
+        scm {
+            connection          = 'scm:git:git://github.com/wrldmap/CovetGUIUtils.git'
+            developerConnection = 'scm:git:ssh://github.com/wrldmap/CovetGUIUtils.git'
+            url                 = 'https://github.com/wrldmap/CovetGUIUtils'
+        }
+    }
+}
+
 publishing {
     publications {
         mavenJava(MavenPublication) {
@@ -114,37 +149,9 @@ publishing {
             artifactId = 'covetguiutils'
             version    = project.version
 
-            // Publish the shadow jar as the primary artifact
             artifact(tasks.shadowJar) { classifier = '' }
             artifact(tasks.sourcesJar)
             artifact(tasks.javadocJar)
-
-            pom {
-                name        = 'CovetGUIUtils'
-                description = 'A GUI utilities library/plugin for Paper Minecraft servers.'
-                url         = 'https://github.com/wrldmap/CovetGUIUtils'
-
-                licenses {
-                    license {
-                        name = 'MIT License'
-                        url  = 'https://opensource.org/licenses/MIT'
-                    }
-                }
-
-                developers {
-                    developer {
-                        id   = 'wrldmap'
-                        name = 'wrldmap'
-                        url  = 'https://github.com/wrldmap'
-                    }
-                }
-
-                scm {
-                    connection          = 'scm:git:git://github.com/wrldmap/CovetGUIUtils.git'
-                    developerConnection = 'scm:git:ssh://github.com/wrldmap/CovetGUIUtils.git'
-                    url                 = 'https://github.com/wrldmap/CovetGUIUtils'
-                }
-            }
         }
     }
 
@@ -157,15 +164,6 @@ publishing {
                 password = System.getenv('GITHUB_TOKEN')
             }
         }
-
-        maven {
-            name = 'MavenCentral'
-            url  = 'https://central.sonatype.com/api/v1/publisher/upload'
-            credentials {
-                username = System.getenv('MAVEN_CENTRAL_USERNAME')
-                password = System.getenv('MAVEN_CENTRAL_PASSWORD')
-            }
-        }
     }
 }
 
@@ -174,5 +172,5 @@ tasks.register('publishToGitHubPackages') {
 }
 
 tasks.register('publishToMavenCentral') {
-    dependsOn tasks.named('publishMavenJavaPublicationToMavenCentralRepository')
+    dependsOn tasks.named('publishAndReleaseToMavenCentral')
 }

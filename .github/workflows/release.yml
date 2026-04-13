@@ -36,7 +36,7 @@ jobs:
           server-password: GITHUB_TOKEN
 
       - name: Build
-        run: ./gradlew shadowJar sourcesJar javadocJar --no-daemon
+        run: ./gradlew build shadowJar --no-daemon
 
       - name: Publish GitHub Release
         uses: softprops/action-gh-release@v2
@@ -44,8 +44,8 @@ jobs:
           tag_name: v${{ steps.version.outputs.VERSION }}
           name: v${{ steps.version.outputs.VERSION }}
           files: |
-            build/libs/CovetGUIUtils-${{ steps.version.outputs.VERSION }}-all.jar
             build/libs/CovetGUIUtils-${{ steps.version.outputs.VERSION }}.jar
+            build/libs/CovetGUIUtils-${{ steps.version.outputs.VERSION }}-all.jar
             build/libs/CovetGUIUtils-${{ steps.version.outputs.VERSION }}-sources.jar
             build/libs/CovetGUIUtils-${{ steps.version.outputs.VERSION }}-javadoc.jar
           generate_release_notes: true

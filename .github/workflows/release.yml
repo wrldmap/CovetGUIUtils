@@ -50,7 +50,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      # ── Publish to GitHub Packages ───────────────────────────────────────
       - name: Publish to GitHub Packages
         run: ./gradlew publishToGitHubPackages --no-daemon
         env:
@@ -59,9 +58,8 @@ jobs:
           ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.SIGNING_KEY }}
           ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGNING_PASSWORD }}
 
-      # ── Publish to Maven Central (via Central Portal) ────────────────────
       - name: Publish to Maven Central
-        run: ./gradlew publishAndReleaseToMavenCentral --no-daemon
+        run: ./gradlew publishAllPublicationsToMavenCentralRepository --no-daemon
         env:
           MAVEN_CENTRAL_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
           MAVEN_CENTRAL_PASSWORD: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}

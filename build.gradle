@@ -91,7 +91,7 @@ processResources {
 }
 
 mavenPublishing {
-    publishToMavenCentral(com.vanniktech.maven.publish.SonatypeHost.CENTRAL_PORTAL)
+    publishToMavenCentral(com.vanniktech.maven.publish.SonatypeHost.CENTRAL_PORTAL, true)
     signAllPublications()
 
     coordinates('io.github.wrldmap', 'covetguiutils', project.version.toString())
@@ -137,7 +137,6 @@ publishing {
     }
 }
 
-// Publish vanniktech's 'maven' publication to GitHub Packages
 tasks.register('publishToGitHubPackages') {
     dependsOn tasks.named('publishMavenPublicationToGitHubPackagesRepository')
 }

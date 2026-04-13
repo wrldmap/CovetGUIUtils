@@ -46,6 +46,8 @@ jobs:
           files: |
             build/libs/CovetGUIUtils-${{ steps.version.outputs.VERSION }}.jar
             build/libs/CovetGUIUtils-${{ steps.version.outputs.VERSION }}-all.jar
+            build/libs/CovetGUIUtils-${{ steps.version.outputs.VERSION }}-sources.jar
+            build/libs/CovetGUIUtils-${{ steps.version.outputs.VERSION }}-javadoc.jar
           generate_release_notes: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -59,9 +61,9 @@ jobs:
           ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGNING_PASSWORD }}
 
       - name: Publish to Maven Central
-        run: ./gradlew publishAllPublicationsToMavenCentralRepository --no-daemon
+        run: ./gradlew publishAllPublicationsToMavenCentralRepository --no-daemon --no-configuration-cache
         env:
-          MAVEN_CENTRAL_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
-          MAVEN_CENTRAL_PASSWORD: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
+          ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
+          ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
           ORG_GRADLE_PROJECT_signingInMemoryKey: ${{ secrets.SIGNING_KEY }}
           ORG_GRADLE_PROJECT_signingInMemoryKeyPassword: ${{ secrets.SIGNING_PASSWORD }}

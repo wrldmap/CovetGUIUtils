@@ -8,7 +8,7 @@ plugins {
 }
 
 group = 'io.github.wrldmap'
-version = '0.1.0'
+version = '0.1.1'
 
 repositories {
     mavenCentral()
@@ -127,16 +127,6 @@ mavenPublishing {
 }
 
 publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            groupId    = 'io.github.wrldmap'
-            artifactId = 'covetguiutils'
-            version    = project.version
-
-            artifact(tasks.shadowJar) { classifier = '' }
-        }
-    }
-
     repositories {
         maven {
             name = 'GitHubPackages'
@@ -149,10 +139,10 @@ publishing {
     }
 }
 
-tasks.withType(PublishToMavenRepository).configureEach {
-    dependsOn tasks.withType(Sign)
+tasks.register('publishToGitHubPackages') {
+    dependsOn tasks.named('publishMavenPublicationToGitHubPackagesRepository')
 }
 
-tasks.register('publishToGitHubPackages') {
-    dependsOn tasks.named('publishMavenJavaPublicationToGitHubPackagesRepository')
+tasks.withType(PublishToMavenRepository).configureEach {
+    dependsOn tasks.withType(Sign)
 }

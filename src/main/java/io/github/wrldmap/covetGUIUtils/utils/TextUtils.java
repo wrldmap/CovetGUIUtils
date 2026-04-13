@@ -1,6 +1,6 @@
-package gg.wrldmap.covetGUIUtils.utils;
+package io.github.wrldmap.covetGUIUtils.utils;
 
-import gg.wrldmap.covetGUIUtils.CovetGUIUtils;
+import io.github.wrldmap.covetGUIUtils.CovetGUIUtils;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.kyori.adventure.text.Component;
 import org.bukkit.entity.Player;

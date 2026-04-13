@@ -1,4 +1,4 @@
-package gg.wrldmap.covetGUIUtils.skript;
+package io.github.wrldmap.covetGUIUtils.skript;
 
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
@@ -8,8 +8,8 @@ import ch.njol.skript.lang.Effect;
 import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.util.Kleenean;
-import gg.wrldmap.covetGUIUtils.api.GuiConfig;
-import gg.wrldmap.covetGUIUtils.api.Manager;
+import io.github.wrldmap.covetGUIUtils.api.GuiConfig;
+import io.github.wrldmap.covetGUIUtils.api.Manager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 

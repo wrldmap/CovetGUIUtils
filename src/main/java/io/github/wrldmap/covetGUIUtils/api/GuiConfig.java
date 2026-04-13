@@ -1,4 +1,4 @@
-package gg.wrldmap.covetGUIUtils.api;
+package io.github.wrldmap.covetGUIUtils.api;
 
 import java.util.Collections;
 import java.util.LinkedHashMap;

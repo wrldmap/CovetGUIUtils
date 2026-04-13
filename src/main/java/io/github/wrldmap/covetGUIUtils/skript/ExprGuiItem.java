@@ -1,4 +1,4 @@
-package gg.wrldmap.covetGUIUtils.skript;
+package io.github.wrldmap.covetGUIUtils.skript;
 
 import ch.njol.skript.doc.Description;
 import ch.njol.skript.doc.Examples;
@@ -8,7 +8,7 @@ import ch.njol.skript.lang.Expression;
 import ch.njol.skript.lang.SkriptParser;
 import ch.njol.skript.lang.util.SimpleExpression;
 import ch.njol.util.Kleenean;
-import gg.wrldmap.covetGUIUtils.api.GuiItems;
+import io.github.wrldmap.covetGUIUtils.api.GuiItems;
 import org.bukkit.event.Event;
 
 // TODO: This doesn't work, and I don't know why. Skript is stupid sometimes.

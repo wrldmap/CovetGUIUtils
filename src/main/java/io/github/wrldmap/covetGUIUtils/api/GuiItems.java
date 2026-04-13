@@ -1,9 +1,9 @@
-package gg.wrldmap.covetGUIUtils.api;
+package io.github.wrldmap.covetGUIUtils.api;
 
 import com.nexomc.nexo.api.NexoItems;
 import dev.lone.itemsadder.api.CustomStack;
-import gg.wrldmap.covetGUIUtils.CovetGUIUtils;
-import gg.wrldmap.covetGUIUtils.gui.DynamicGUIHelper;
+import io.github.wrldmap.covetGUIUtils.CovetGUIUtils;
+import io.github.wrldmap.covetGUIUtils.gui.DynamicGUIHelper;
 import io.th0rgal.oraxen.api.OraxenItems;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Material;

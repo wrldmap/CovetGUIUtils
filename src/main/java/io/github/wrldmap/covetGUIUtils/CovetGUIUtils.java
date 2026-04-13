@@ -1,17 +1,10 @@
-package gg.wrldmap.covetGUIUtils;
+package io.github.wrldmap.covetGUIUtils;
 
-import ch.njol.skript.Skript;
-import ch.njol.skript.classes.ClassInfo;
-import ch.njol.skript.classes.Parser;
-import ch.njol.skript.lang.ParseContext;
-import ch.njol.skript.registrations.Classes;
-import gg.wrldmap.covetGUIUtils.api.GuiConfig;
-import gg.wrldmap.covetGUIUtils.api.GuiItems;
-import gg.wrldmap.covetGUIUtils.command.OpenGUI;
-import gg.wrldmap.covetGUIUtils.gui.DynamicGUIHelper;
-import gg.wrldmap.covetGUIUtils.gui.GUIConfigurationHelper;
-import gg.wrldmap.covetGUIUtils.gui.GUIListener;
-import gg.wrldmap.covetGUIUtils.skript.SkriptSupport;
+import io.github.wrldmap.covetGUIUtils.command.OpenGUI;
+import io.github.wrldmap.covetGUIUtils.gui.DynamicGUIHelper;
+import io.github.wrldmap.covetGUIUtils.gui.GUIConfigurationHelper;
+import io.github.wrldmap.covetGUIUtils.gui.GUIListener;
+import io.github.wrldmap.covetGUIUtils.skript.SkriptSupport;
 import io.papermc.paper.plugin.lifecycle.event.types.LifecycleEvents;
 import net.kyori.adventure.text.logger.slf4j.ComponentLogger;
 import net.kyori.adventure.text.minimessage.MiniMessage;

@@ -1,4 +1,4 @@
-package gg.wrldmap.covetGUIUtils;
+package io.github.wrldmap.covetGUIUtils;
 
 import io.papermc.paper.plugin.bootstrap.BootstrapContext;
 import io.papermc.paper.plugin.bootstrap.PluginBootstrap;

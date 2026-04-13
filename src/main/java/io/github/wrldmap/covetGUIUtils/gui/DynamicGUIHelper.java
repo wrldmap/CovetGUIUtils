@@ -1,10 +1,10 @@
-package gg.wrldmap.covetGUIUtils.gui;
+package io.github.wrldmap.covetGUIUtils.gui;
 
 import com.nexomc.nexo.NexoPlugin;
 import dev.lone.itemsadder.api.FontImages.FontImageWrapper;
 import dev.lone.itemsadder.api.FontImages.TexturedInventoryWrapper;
-import gg.wrldmap.covetGUIUtils.CovetGUIUtils;
-import gg.wrldmap.covetGUIUtils.api.GuiConfig;
+import io.github.wrldmap.covetGUIUtils.CovetGUIUtils;
+import io.github.wrldmap.covetGUIUtils.api.GuiConfig;
 import io.th0rgal.oraxen.OraxenPlugin;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.kyori.adventure.key.Key;
@@ -17,7 +17,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryHolder;
 import org.jetbrains.annotations.NotNull;
-
 
 public class DynamicGUIHelper implements InventoryHolder {
     private static DynamicGUIHelper instance;
